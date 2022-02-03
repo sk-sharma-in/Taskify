@@ -1,0 +1,34 @@
+{
+    "actions": {
+        "Execute_JS_Code": {
+            "inputs": {
+                "code": "if(Array.isArray(list)){return list.map(item => item.email)}else{return null;}",
+                "parameters": [
+                    "list"
+                ]
+            },
+            "type": "Execute_JS_Code",
+            "runAfter": "HTTP"
+        },
+        "Email": {
+            "inputs": {
+                "to": [
+                    "taskify.runner@gmail.com"
+                ],
+                "subject": "Taskify Status",
+                "message": "Execution done!"
+            },
+            "type": "Email",
+            "runAfter": "Execute_JS_Code"
+        },
+        "HTTP":{
+            "inputs":{
+                "uri":"https://jsonplaceholder.typicode.com/posts/1/comments",
+                "method":"GET"
+            },
+            "type": "HTTP"
+        }
+    },
+    "version": "1.0.0",
+    "trigger": "HTTP"
+}
